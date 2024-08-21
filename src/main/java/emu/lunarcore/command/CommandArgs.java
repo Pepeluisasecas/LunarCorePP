@@ -254,7 +254,7 @@ public class CommandArgs {
                 
                 // Apply sub stat upgrades to the relic
                 int upgrades = item.getMaxNormalSubAffixCount() - item.getCurrentSubAffixCount();
-                if (upgrades > 0) {
+                if (upgrades > 0 && !this.hasFlag("-noaffixupgrade")) {
                     item.addSubAffixes(upgrades);
                 }
                 
