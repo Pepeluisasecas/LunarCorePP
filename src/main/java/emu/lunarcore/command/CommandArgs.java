@@ -248,7 +248,7 @@ public class CommandArgs {
             }
             
             // Try to set level
-            if (this.getLevel() > 0) {
+            if (this.getLevel() > 0 && !this.hasFlag("-nolevelup")) {
                 // Set relic level
                 item.setLevel(Math.min(this.getLevel(), LunarCore.getConfig().getServerOptions().maxCustomRelicLevel));
                 
@@ -268,7 +268,19 @@ public class CommandArgs {
                 }
                 
                 item.getSubAffixes().forEach(subAffix -> subAffix.setStep(subAffix.getCount() * 2));
-            } if (this.hasFlag("-sorted")) {
+                
+            }
+            if (this.hasFlag("-midsteps")) {
+                if (item.getSubAffixes() == null) {
+                    item.resetSubAffixes();
+                }
+                
+                item.getSubAffixes().forEach(subAffix -> subAffix.setStep(subAffix.getCount() * 1));
+                
+            }
+
+            
+            if (this.hasFlag("-sorted")) {
                 item.sortSubAffixes();
             }
         }
